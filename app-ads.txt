@@ -1,0 +1,9 @@
+# Simmer — authorised digital sellers
+#
+# AdMob crawls this to confirm the app in the store belongs to the account
+# selling its inventory. It must be served at the ROOT of the developer website
+# in the store listing:  https://<that-domain>/app-ads.txt
+#
+# Publisher ID is from AdMob (Settings > Account information), and it is the
+# same number that prefixes the ad unit ids in scripts/build-android.sh.
+google.com, pub-8020026129809039, DIRECT, f08c47fec0942fa0
