@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A recipe on Simmer</title>
+<meta name="description" content="A recipe posted by a cook near you on Simmer — ingredients with quantities, steps with photos, and the cook-along video.">
+<!-- Static defaults only. Crawlers never run the script below, so the card a
+     link unfurls into is the same for every recipe; the caption the app
+     shares alongside the link carries the dish. -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Simmer">
+<meta property="og:title" content="A recipe on Simmer">
+<meta property="og:description" content="Recipes from kitchens near you — quantities, steps, photos and cook-along videos.">
+<meta property="og:image" content="https://chinmay-92.github.io/simmer/art/hero.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;900&family=Instrument+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
+
+<style>
+  :root {
+    color-scheme: light dark;
+    --ground:      #FDF6EF;
+    --raised:      #FFFFFF;
+    --sunk:        #F3E9DD;
+    --ink:         #14100E;
+    --ink-soft:    #6B5F58;
+    --rule:        #E4D6C7;
+    --ember:       #D2431E;
+    --saffron:     #B8760C;
+    --shadow:      0 1px 2px rgba(20,16,14,.06), 0 10px 30px rgba(20,16,14,.08);
+
+    --step--1: clamp(.78rem, .76rem + .1vw, .84rem);
+    --step-0:  clamp(1rem, .97rem + .16vw, 1.09rem);
+    --step-1:  clamp(1.2rem, 1.12rem + .38vw, 1.45rem);
+    --step-2:  clamp(1.5rem, 1.3rem + .9vw, 2.1rem);
+    --step-3:  clamp(2rem, 1.5rem + 2.2vw, 3rem);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:   #14100E;
+      --raised:   #1F1A17;
+      --sunk:     #100C0A;
+      --ink:      #FDF6EF;
+      --ink-soft: #9C8F86;
+      --rule:     #342C26;
+      --ember:    #FF6A3D;
+      --saffron:  #F5A623;
+      --shadow:   0 1px 2px rgba(0,0,0,.4), 0 14px 36px rgba(0,0,0,.4);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground:   #14100E;
+    --raised:   #1F1A17;
+    --sunk:     #100C0A;
+    --ink:      #FDF6EF;
+    --ink-soft: #9C8F86;
+    --rule:     #342C26;
+    --ember:    #FF6A3D;
+    --saffron:  #F5A623;
+    --shadow:   0 1px 2px rgba(0,0,0,.4), 0 14px 36px rgba(0,0,0,.4);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; display: flex; flex-direction: column;
+    background: var(--ground); color: var(--ink);
+    font-family: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-size: var(--step-0); line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { width: min(640px, 100% - 2rem); margin-inline: auto; }
+  h1, h2 {
+    font-family: Archivo, ui-sans-serif, system-ui, sans-serif;
+    font-weight: 900; line-height: .98; letter-spacing: -.03em;
+    text-wrap: balance; margin: 0;
+  }
+  p { margin: 0; }
+  a { color: inherit; }
+  img, video { max-width: 100%; display: block; }
+  :focus-visible { outline: 3px solid var(--ember); outline-offset: 3px; border-radius: 2px; }
+  [hidden] { display: none !important; }
+
+  .mono {
+    font-family: "DM Mono", ui-monospace, monospace; font-size: var(--step--1);
+    color: var(--ink-soft); font-variant-numeric: tabular-nums;
+  }
+  .eyebrow {
+    font-family: "DM Mono", ui-monospace, monospace; font-size: var(--step--1);
+    letter-spacing: .14em; text-transform: uppercase; color: var(--ember); margin: 0;
+  }
+
+  /* ---- masthead -------------------------------------------------------- */
+  header.top { border-bottom: 1px solid var(--rule); }
+  header.top .wrap { display: flex; align-items: center; gap: .6rem; padding: .85rem 0; }
+  .mark {
+    font-family: Archivo, sans-serif; font-weight: 900; font-size: 1.4rem;
+    letter-spacing: -.05em; color: var(--ember); text-decoration: none; margin-right: auto;
+  }
+  .top-cta {
+    font-family: "DM Mono", monospace; font-size: var(--step--1); text-decoration: none;
+    border: 1px solid var(--rule); color: var(--ink); border-radius: 100px;
+    padding: .45rem 1rem; white-space: nowrap; transition: color .2s, border-color .2s, background .2s;
+  }
+  .top-cta:hover { background: var(--ember); border-color: var(--ember); color: #fff; }
+
+  /* ---- buttons --------------------------------------------------------- */
+  .routes { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.6rem; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: .6rem;
+    text-decoration: none; border-radius: 100px; padding: .85rem 1.4rem; font-weight: 600;
+    border: 1px solid transparent; white-space: nowrap;
+    transition: transform .2s cubic-bezier(.2,0,0,1), background .2s, border-color .2s, box-shadow .2s;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary {
+    background: var(--ember); color: #fff;
+    box-shadow: 0 6px 22px color-mix(in srgb, var(--ember) 38%, transparent);
+  }
+  .btn-ghost { border-color: var(--rule); color: var(--ink); background: var(--raised); }
+  .btn-ghost:hover { border-color: var(--ember); color: var(--ember); }
+  @media (max-width: 420px) { .routes .btn { flex: 1 1 100%; } }
+
+  /* ---- the recipe ------------------------------------------------------ */
+  main { flex: 1; padding: 1.5rem 0 3rem; }
+  .cover {
+    margin: 0 0 1.4rem; border-radius: 20px; overflow: hidden;
+    background: #0B0808; box-shadow: var(--shadow);
+  }
+  .cover img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  .cover video { width: 100%; max-height: 70vh; background: #0B0808; }
+  .byline { margin-bottom: .7rem; }
+  h1 { font-size: var(--step-3); }
+  .timeline { margin-top: .9rem; }
+
+  section.part { margin-top: 2.4rem; }
+  section.part > h2 {
+    font-family: "DM Mono", ui-monospace, monospace; font-weight: 500;
+    font-size: var(--step--1); letter-spacing: .14em; text-transform: uppercase;
+    color: var(--ember); padding-bottom: .7rem; border-bottom: 2px solid var(--ink);
+  }
+
+  .ingredients { list-style: none; margin: 0; padding: 0; }
+  .ingredients li {
+    display: grid; grid-template-columns: minmax(5.5rem, auto) 1fr; gap: 1rem;
+    padding: .7rem .15rem; border-bottom: 1px solid var(--rule); align-items: baseline;
+  }
+  .ingredients .qty { color: var(--saffron); }
+  .ingredients li.single { grid-template-columns: 1fr; }
+
+  .steps { list-style: none; margin: 0; padding: 0; counter-reset: step; }
+  .steps li {
+    counter-increment: step; display: grid; grid-template-columns: 2.6rem 1fr; gap: .4rem 1rem;
+    padding: 1.1rem 0; border-bottom: 1px solid var(--rule);
+  }
+  .steps li::before {
+    content: counter(step); grid-row: 1 / span 3;
+    font-family: Archivo, sans-serif; font-weight: 900; font-size: var(--step-2);
+    line-height: 1; letter-spacing: -.04em; color: var(--ember);
+  }
+  .steps p { grid-column: 2; }
+  .steps .legacy { grid-column: 2; }
+  .steps .step-media { grid-column: 2; margin: .4rem 0 0; border-radius: 14px; overflow: hidden; background: #0B0808; }
+  .steps .step-media img { width: 100%; max-height: 420px; object-fit: cover; }
+  .steps .step-media video { width: 100%; max-height: 420px; }
+
+  .full-video { margin: 1rem 0 0; border-radius: 16px; overflow: hidden; background: #0B0808; box-shadow: var(--shadow); }
+  .full-video video { width: 100%; max-height: 70vh; }
+
+  .notes { margin-top: 1rem; color: var(--ink-soft); white-space: pre-line; }
+  .nutrition { margin-top: 1rem; }
+  .social { margin-top: 2.2rem; padding-top: 1rem; border-top: 1px solid var(--rule); }
+
+  /* ---- closing card, and the states ------------------------------------ */
+  .card {
+    margin-top: 2.6rem; background: var(--raised); border: 1px solid var(--rule);
+    border-radius: 18px; padding: 1.6rem; box-shadow: var(--shadow);
+  }
+  .card h2 { font-size: var(--step-2); margin-top: .6rem; }
+  .card p { margin-top: .8rem; color: var(--ink-soft); max-width: 48ch; }
+  .state { text-align: center; padding: 3rem 0; }
+  .state h1 { font-size: var(--step-2); }
+  .state p { margin: .9rem auto 0; color: var(--ink-soft); max-width: 40ch; }
+  .state .routes { justify-content: center; }
+  .pulse { color: var(--ink-soft); animation: pulse 1.4s ease-in-out infinite; }
+  @keyframes pulse { 50% { opacity: .45; } }
+
+  footer {
+    border-top: 1px solid var(--rule); padding: 1.6rem 0 2.4rem;
+    font-family: "DM Mono", monospace; font-size: var(--step--1); color: var(--ink-soft);
+  }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: .5rem 1.4rem; justify-content: space-between; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn:hover { transform: none; }
+    .pulse { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="../">Simmer</a>
+    <a class="top-cta" href="../">Get Simmer</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <section class="state" id="loading" aria-live="polite">
+      <p class="mono pulse">Fetching the recipe…</p>
+    </section>
+
+    <section class="state" id="missing" hidden>
+      <p class="eyebrow">Simmer</p>
+      <h1 style="margin-top:.8rem">This recipe isn't available</h1>
+      <p id="missing-why">The cook may have taken it down, or the link didn't survive the trip. Recipes from kitchens near you are waiting in the app.</p>
+      <div class="routes">
+        <a class="btn btn-primary" href="../">Get Simmer</a>
+      </div>
+    </section>
+
+    <article id="recipe" hidden>
+      <figure class="cover" id="cover" hidden></figure>
+      <p class="eyebrow byline" id="byline"></p>
+      <h1 id="dish"></h1>
+      <p class="mono timeline" id="timeline" hidden></p>
+
+      <div class="routes">
+        <a class="btn btn-primary" id="open" href="#">Open in Simmer</a>
+        <a class="btn btn-ghost" href="../">Get Simmer</a>
+      </div>
+
+      <section class="part" id="ingredients-part" hidden>
+        <h2>Ingredients</h2>
+        <ul class="ingredients" id="ingredients"></ul>
+      </section>
+
+      <section class="part" id="steps-part" hidden>
+        <h2>Method</h2>
+        <ol class="steps" id="steps"></ol>
+      </section>
+
+      <section class="part" id="video-part" hidden>
+        <h2>Cook-along</h2>
+        <div class="full-video" id="full-video"></div>
+      </section>
+
+      <section class="part" id="notes-part" hidden>
+        <h2>Notes</h2>
+        <p class="notes" id="notes"></p>
+      </section>
+
+      <section class="part" id="nutrition-part" hidden>
+        <h2>Per serving</h2>
+        <p class="mono nutrition" id="nutrition"></p>
+      </section>
+
+      <p class="mono social" id="social" hidden></p>
+
+      <aside class="card">
+        <p class="eyebrow">Cooked near you</p>
+        <h2>See what else your neighbours are making.</h2>
+        <p>Simmer is a feed of recipes from kitchens within 50 miles. React, tip the cook, and post your own — it's in closed beta on iPhone and Android.</p>
+        <div class="routes">
+          <a class="btn btn-ghost" href="../">Get Simmer</a>
+        </div>
+      </aside>
+    </article>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Simmer · recipes from kitchens near you</span>
+    <span>cppingale@gmail.com</span>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    // The anon key is public by design: it only reaches what row-level
+    // security and the definer RPC below choose to expose.
+    var SUPABASE_URL = "https://qhjlszkaishjsethmjvo.supabase.co";
+    var ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFoamxzemthaXNoanNldGhtanZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgzODEwMDksImV4cCI6MjEwMzk1NzAwOX0.QvLtG7o5_JzBJIasm24GrWKra8YXDsE0ZSenunRHl2w";
+
+    var $ = function (id) { return document.getElementById(id); };
+    var show = function (id, on) { $(id).hidden = !on; };
+
+    function el(tag, cls, text) {
+      var n = document.createElement(tag);
+      if (cls) n.className = cls;
+      if (text != null) n.textContent = text;
+      return n;
+    }
+
+    function fail(why) {
+      show("loading", false);
+      show("recipe", false);
+      if (why) $("missing-why").textContent = why;
+      show("missing", true);
+    }
+
+    var id = new URLSearchParams(location.search).get("id") || "";
+    if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id)) {
+      fail("This link doesn't point at a recipe. Recipes from kitchens near you are waiting in the app.");
+      return;
+    }
+
+    // On a phone this lands straight in the app when it is installed. On a
+    // desktop the scheme is unknown and nothing happens, which is why the
+    // page renders the whole recipe rather than relying on the bounce.
+    var appLink = "simmer://recipe/" + id.toLowerCase();
+    $("open").href = appLink;
+    if (/iPhone|iPad|Android/i.test(navigator.userAgent)) {
+      setTimeout(function () { location.href = appLink; }, 500);
+    }
+
+    // ---- helpers ----------------------------------------------------------
+
+    function isVideo(kind, url) {
+      if (kind && /video/i.test(String(kind))) return true;
+      if (kind && /photo|image/i.test(String(kind))) return false;
+      return /\.(mp4|mov|m4v|webm)(\?|$)/i.test(url || "");
+    }
+
+    function media(url, kind, alt) {
+      if (isVideo(kind, url)) {
+        var v = document.createElement("video");
+        v.controls = true; v.playsInline = true; v.preload = "metadata"; v.src = url;
+        return v;
+      }
+      var img = document.createElement("img");
+      img.src = url; img.alt = alt || ""; img.loading = "lazy";
+      return img;
+    }
+
+    function unitLabel(u) {
+      var s = String(u == null ? "" : u).toLowerCase().replace(/_/g, " ").trim();
+      if (!s || s === "none") return "";
+      if (s === "totaste" || s === "to taste") return "to taste";
+      return s;
+    }
+
+    function minutes(n) { return n + " min"; }
+
+    function plural(n, one, many) { return n + " " + (n === 1 ? one : many); }
+
+    function num(v) { return typeof v === "number" && isFinite(v) ? v : null; }
+
+    // ---- render -----------------------------------------------------------
+
+    function render(r) {
+      var dish = (r.dish || "Untitled recipe").trim();
+      document.title = dish + " · Simmer";
+      $("dish").textContent = dish;
+
+      var by = [];
+      if (r.handle) by.push("@" + String(r.handle).replace(/^@/, ""));
+      if (r.cuisine) by.push(r.cuisine);
+      $("byline").textContent = by.join(" · ");
+      show("byline", by.length > 0);
+
+      if (r.cover_url) {
+        var cover = $("cover");
+        cover.appendChild(media(r.cover_url, r.cover_kind, dish));
+        show("cover", true);
+      }
+
+      var prep = num(r.prep_minutes), cook = num(r.cook_minutes), serves = num(r.servings);
+      var t = [];
+      if (prep) t.push(minutes(prep) + " prep");
+      if (cook) t.push(minutes(cook) + " cook");
+      if (prep && cook) t.push(minutes(prep + cook) + " total");
+      if (serves) t.push("serves " + serves);
+      if (t.length) { $("timeline").textContent = t.join(" · "); show("timeline", true); }
+
+      var ings = Array.isArray(r.ingredients) ? r.ingredients : [];
+      if (ings.length) {
+        var ul = $("ingredients");
+        ings.forEach(function (i) {
+          if (!i) return;
+          var q = String(i.quantity || "").trim();
+          var u = unitLabel(i.unit);
+          var n = String(i.name || "").trim();
+          var li = el("li");
+          if (u === "to taste") {
+            if (q) li.appendChild(el("span", "mono qty", q)); else li.className = "single";
+            li.appendChild(el("span", null, n + ", to taste"));
+          } else {
+            var amount = [q, u].filter(Boolean).join(" ");
+            if (amount) li.appendChild(el("span", "mono qty", amount)); else li.className = "single";
+            li.appendChild(el("span", null, n));
+          }
+          ul.appendChild(li);
+        });
+        show("ingredients-part", true);
+      }
+
+      var steps = Array.isArray(r.steps) ? r.steps : [];
+      if (steps.length) {
+        var ol = $("steps");
+        steps.forEach(function (s) {
+          if (!s) return;
+          var li = el("li");
+          li.appendChild(el("p", null, String(s.text || "").trim()));
+          if (s.media_url) {
+            var fig = el("figure", "step-media");
+            fig.appendChild(media(s.media_url, s.media_kind, ""));
+            li.appendChild(fig);
+          }
+          // Older posts kept a free-text ingredient line on each step.
+          var legacy = Array.isArray(s.ingredients) ? s.ingredients.filter(Boolean) : [];
+          if (legacy.length) li.appendChild(el("p", "mono legacy", legacy.join(" · ")));
+          ol.appendChild(li);
+        });
+        show("steps-part", true);
+      }
+
+      if (r.video_url) {
+        $("full-video").appendChild(media(r.video_url, "Video", dish));
+        show("video-part", true);
+      }
+
+      var notes = String(r.method || "").trim();
+      if (notes) { $("notes").textContent = notes; show("notes-part", true); }
+
+      var nut = [];
+      if (num(r.calories) != null) nut.push(r.calories + " kcal");
+      if (num(r.protein_g) != null) nut.push(r.protein_g + " g protein");
+      if (num(r.carbs_g) != null) nut.push(r.carbs_g + " g carbs");
+      if (num(r.fibre_g) != null) nut.push(r.fibre_g + " g fibre");
+      if (num(r.fat_g) != null) nut.push(r.fat_g + " g fat");
+      if (nut.length) { $("nutrition").textContent = nut.join(" · "); show("nutrition-part", true); }
+
+      var social = [];
+      var counts = r.reaction_counts && typeof r.reaction_counts === "object" ? r.reaction_counts : {};
+      var reactions = Object.keys(counts).reduce(function (sum, k) { return sum + (num(counts[k]) || 0); }, 0);
+      if (reactions) social.push(plural(reactions, "reaction", "reactions"));
+      var tips = num(r.tips_received);
+      if (tips) social.push(plural(tips, "tip", "tips"));
+      var posted = r.created_at ? new Date(r.created_at) : null;
+      if (posted && !isNaN(posted)) {
+        social.push("posted " + new Intl.DateTimeFormat(undefined, { day: "numeric", month: "short", year: "numeric" }).format(posted));
+      }
+      if (social.length) { $("social").textContent = social.join(" · "); show("social", true); }
+
+      show("loading", false);
+      show("recipe", true);
+    }
+
+    // ---- fetch ------------------------------------------------------------
+
+    fetch(SUPABASE_URL + "/rest/v1/rpc/public_recipe", {
+      method: "POST",
+      headers: {
+        "apikey": ANON_KEY,
+        "Authorization": "Bearer " + ANON_KEY,
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({ p_id: id })
+    }).then(function (res) {
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      return res.text();
+    }).then(function (body) {
+      var data = body ? JSON.parse(body) : null;
+      if (Array.isArray(data)) data = data[0] || null;
+      if (!data || typeof data !== "object" || !data.dish) { fail(); return; }
+      render(data);
+    }).catch(function () {
+      fail("We couldn't reach the kitchen just now. Try again in a moment, or open it in the app.");
+    });
+  })();
+</script>
+</body>
+</html>

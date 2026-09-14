@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Live cooking from kitchens within 50 miles of you. Simmer is in closed beta on iPhone and Android.">
+<meta name="description" content="Recipes from kitchens within 50 miles of you — quantities, steps, photos and cook-along videos from cooks a few streets away. Simmer is in closed beta on iPhone and Android.">
 <title>Simmer Beta</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -133,21 +133,15 @@
     margin-top: 1.4rem; font-size: var(--step-1);
     color: var(--on-film-dim); max-width: 44ch;
   }
-  .live-now {
+  /* The status line above the headline. A feed has nothing "live" in it, so
+     this is plain type — no pulsing dot. */
+  .status {
     display: inline-flex; align-items: center; gap: .6rem;
     font-family: "DM Mono", monospace; font-size: var(--step--1);
     letter-spacing: .12em; text-transform: uppercase;
     color: var(--saffron); margin-bottom: 1.5rem;
   }
-  .dot {
-    width: 9px; height: 9px; border-radius: 50%; background: var(--ember); flex: none;
-    box-shadow: 0 0 0 0 color-mix(in srgb, var(--ember) 70%, transparent);
-    animation: pulse 2.4s ease-out infinite;
-  }
-  @keyframes pulse {
-    70%  { box-shadow: 0 0 0 11px color-mix(in srgb, var(--ember) 0%, transparent); }
-    100% { box-shadow: 0 0 0 0  color-mix(in srgb, var(--ember) 0%, transparent); }
-  }
+  .status::before { content: ""; width: 15px; height: 2px; background: var(--saffron); flex: none; }
 
   /* the load sequence: each line of the hero arrives in turn */
   .cue { opacity: 0; transform: translateY(20px); }
@@ -183,7 +177,7 @@
   .btn svg { flex: none; }
   .btn small { display: block; font-weight: 400; font-size: .72rem; opacity: .82; line-height: 1.25; }
 
-  /* ---- the pass -------------------------------------------------------- */
+  /* ---- the feed -------------------------------------------------------- */
   .pass { padding: clamp(3rem, 7vw, 5.5rem) 0 clamp(2rem, 4vw, 3rem); }
   .pass-head {
     display: flex; align-items: baseline; justify-content: space-between;
@@ -288,7 +282,6 @@
   @media (prefers-reduced-motion: reduce) {
     .rise, .rise.in, .cue, .lit .cue { opacity: 1; transform: none; transition: none; animation: none; }
     .shot img, .shot.in img { transform: none; transition: none; }
-    .dot { animation: none; }
     .btn:hover, .pillar:hover { transform: none; }
     .film-plate { transform: none !important; }
   }
@@ -307,11 +300,12 @@
     <div class="film-plate" id="plate" aria-hidden="true"></div>
     <canvas class="embers" id="embers" aria-hidden="true"></canvas>
     <div class="wrap">
-      <p class="live-now cue"><span class="dot" aria-hidden="true"></span>Now in closed beta</p>
-      <h1 class="cue">Someone near you is <em>cooking dinner</em> right now.</h1>
+      <p class="status cue">Now in closed beta</p>
+      <h1 class="cue">Someone near you just <em>posted dinner</em>.</h1>
       <p class="lede cue">
-        Live cooking from kitchens within 50 miles of you. Not recipe videos.
-        Not edited reels. Someone three streets away, at the hob, this minute.
+        Recipes from kitchens within 50 miles of you — the quantities, the
+        steps, the photo of the bit everyone gets wrong. Written by cooks a few
+        streets away, not a studio.
       </p>
       <div class="routes cue">
         <a class="btn btn-primary" href="https://testflight.apple.com/join/TPReUMXr">
@@ -329,48 +323,64 @@
   <section class="pass">
     <div class="wrap">
       <div class="pass-head">
-        <h2 style="font-size:var(--step-2)">The pass</h2>
-        <span>What a Tuesday evening looks like in the app</span>
+        <h2 style="font-size:var(--step-2)">The feed</h2>
+        <span>Newest first, within 50 miles · filter by cuisine</span>
       </div>
       <ul class="dockets">
         <li class="docket rise">
-          <span class="dish">Chicken biryani, layering it now</span>
-          <span class="who">@saffronfox · Camden</span>
-          <span class="meta"><b>~4 miles</b>41 watching · 26 min on</span>
+          <span class="dish">Chicken biryani, layered the proper way</span>
+          <span class="who">@saffronfox · Camden · Indian</span>
+          <span class="meta"><b>~4 miles</b>128 reactions · 2 hr ago</span>
         </li>
         <li class="docket rise">
-          <span class="dish">Sourdough, second proof</span>
-          <span class="who">@crumbwitch · Hackney</span>
-          <span class="meta"><b>~7 miles</b>12 watching · 8 min on</span>
+          <span class="dish">Sourdough for people who work full time</span>
+          <span class="who">@crumbwitch · Hackney · Bakes</span>
+          <span class="meta"><b>~7 miles</b>64 reactions · 5 hr ago</span>
         </li>
         <li class="docket rise">
-          <span class="dish">Pad kra pao, one wok, no mercy</span>
-          <span class="who">@basilriot · Peckham</span>
-          <span class="meta"><b>~11 miles</b>88 watching · 14 min on</span>
+          <span class="dish">Pad kra pao, one wok, twelve minutes</span>
+          <span class="who">@basilriot · Peckham · Thai</span>
+          <span class="meta"><b>~11 miles</b>212 reactions · yesterday</span>
         </li>
         <li class="docket rise">
-          <span class="dish">Sunday ragù on a Tuesday</span>
-          <span class="who">@nonnasrevenge · Islington</span>
-          <span class="meta"><b>~5 miles</b>7 watching · 2 hr on</span>
+          <span class="dish">Sunday ragù, with the four-hour version and the one-hour version</span>
+          <span class="who">@nonnasrevenge · Islington · Italian</span>
+          <span class="meta"><b>~5 miles</b>39 reactions · yesterday</span>
         </li>
       </ul>
+      <p class="small-print rise">
+        Free accounts see 50 miles. Chef Pass stretches that to 150, or watch a
+        short ad and the feed opens to 150 miles for the next half hour.
+      </p>
     </div>
   </section>
 
   <section class="band">
     <div class="wrap band-inner">
       <div class="rise">
-        <p class="eyebrow">Cooking only</p>
-        <h2>Show the food before you go live.</h2>
+        <p class="eyebrow">The recipe editor</p>
+        <h2>Write it the way you'd cook it.</h2>
         <p>
-          Every broadcast starts by pointing the camera at your ingredients or
-          your hob. A check runs on the server, and a shot with no cooking in it
-          doesn't start a stream at all. Live streams get sampled again as they
-          run — this is the whole reason Simmer isn't another streaming app.
+          A recipe on Simmer is not a caption under a photo. It has sections
+          in the order a cook thinks — cover, dish, time, ingredients, steps —
+          and each one is a real field, so the person reading it three streets
+          away can actually make the thing.
+        </p>
+        <ul class="nots">
+          <li>Ingredients as quantity · unit · name, one row each</li>
+          <li>Steps with their own photo or short clip</li>
+          <li>Prep time, cook time, servings</li>
+          <li>A cover photo or video</li>
+          <li>A full cook-along video, if you want one</li>
+          <li>Notes, and nutrition per serving if you know it</li>
+        </ul>
+        <p class="small-print">
+          Photos and videos come straight from your library. Simmer never asks
+          for the camera or the microphone.
         </p>
       </div>
       <figure class="shot rise" style="margin:0">
-        <img src="art/gate.jpg" alt="A phone held over a board of tomatoes, chillies, garlic and coriander in a dark kitchen.">
+        <img src="art/gate.jpg" alt="A phone photographing a board of tomatoes, chillies, garlic and coriander in a dark kitchen — the ingredients for a post.">
       </figure>
     </div>
   </section>
@@ -384,7 +394,7 @@
           <p>
             Design a cook — body, colours, hat, apron, the utensil in their hand —
             or pick a ready-made one. Your real name appears nowhere, and your
-            handle is the only thing anyone else ever sees.
+            handle is the only thing anyone else ever sees on a post.
           </p>
         </article>
         <article class="pillar rise">
@@ -392,17 +402,18 @@
           <h3>A neighbourhood, never a pin</h3>
           <p>
             Others see a coarse label and a rough distance — “Camden, about 4
-            miles”. Your exact position works out who is near you and is never
-            shown to another person, on a map or anywhere else.
+            miles”. Your exact position works out whose recipes you see and is
+            never shown to another person, on a map or anywhere else.
           </p>
         </article>
         <article class="pillar rise">
-          <span class="tag">Tips, mid-recipe</span>
-          <h3>Send SPICE while they cook</h3>
+          <span class="tag">Reactions and tips</span>
+          <h3>Love, Yum, Fire, Wow — then SPICE</h3>
           <p>
-            Earn it by cooking, by keeping a streak, or by watching a short ad,
-            then send it to whoever is at the stove. SPICE has no cash value and
-            cannot be withdrawn.
+            Four reactions, one per recipe, switch it any time. When a post
+            deserves more, tip SPICE: earn it by cooking, keeping a streak,
+            finishing quests or watching a short ad, or buy a pack. SPICE has
+            no cash value and cannot be withdrawn.
           </p>
         </article>
       </div>
@@ -437,18 +448,20 @@
     <div class="wrap band-inner">
       <div class="rise">
         <p class="eyebrow">For cooks</p>
-        <h2>Build an audience at your own hob.</h2>
+        <h2>Your recipes, in front of your neighbours.</h2>
         <p>
           You don't need a studio, a crew or a following somewhere else. You need
-          a pan and a phone. Simmer puts you in front of the people closest to
-          you, and the ones who like what you're making send SPICE while you cook.
+          a pan, a phone and the recipe written down properly. Simmer puts it in
+          front of the people closest to you, and the ones who cook it send SPICE
+          back.
         </p>
         <ul class="nots">
-          <li>Go live between 5 and 8 — that's when kitchens are busy</li>
-          <li>Put the dish in the title, not the word “cooking”</li>
-          <li>Talk back, and show the bit everyone gets wrong</li>
-          <li>Watch an ad while the pan heats; the SPICE is yours</li>
+          <li>Post the recipe, not a reel — quantities travel further than vibes</li>
+          <li>Put the dish in the title, and the trick in step three</li>
+          <li>Every tip on a post reaches the cook who wrote it</li>
+          <li>Share to Instagram, TikTok, YouTube or X — the photo and a link go with it</li>
           <li>Keep the streak — the daily reward grows with it</li>
+          <li>Quests, XP and a leaderboard of cooks nearby</li>
         </ul>
         <p class="small-print">
           SPICE is in-app only today. It has no cash value and cannot be
@@ -458,7 +471,7 @@
         </p>
       </div>
       <figure class="shot rise" style="margin:0">
-        <img src="art/earn.jpg" alt="A cook's hands plating a dish beside a phone on a tripod, filming, in a warm dark kitchen.">
+        <img src="art/earn.jpg" alt="A phone on a small tripod framing a cook's hands finishing a bowl — the last step of a recipe, shot in a warm dark kitchen.">
       </figure>
     </div>
   </section>
@@ -468,9 +481,9 @@
       <p class="eyebrow">Beta testing</p>
       <h2 style="margin-top:.8rem">Come and cook with us.</h2>
       <p>
-        Simmer is new and the kitchens are still filling up. The quickest way to
-        see the whole thing is to broadcast something yourself — beans on toast
-        counts, as long as the camera can see it.
+        Simmer is new and the feed is still filling up. The quickest way to
+        see the whole thing is to post something yourself — beans on toast
+        counts, as long as it has a photo and the quantities.
       </p>
       <div class="routes">
         <a class="btn btn-primary" href="https://testflight.apple.com/join/TPReUMXr">
@@ -488,9 +501,9 @@
         address you use on your phone and we'll add it.
         <br><br>
         <b>iPhone needs TestFlight</b>, Apple's free testing app — the link
-        installs it if you don't have it. Please allow the camera and your
-        location when asked: going live needs one, and finding cooks near you
-        needs the other.
+        installs it if you don't have it. Please allow your location when asked:
+        that's how the feed finds recipes near you. Photos and videos come from
+        your library, so there is no camera or microphone permission to grant.
       </p>
     </div>
   </section>
@@ -498,7 +511,7 @@
 
 <footer>
   <div class="wrap">
-    <span>Simmer · live cooking, nearby</span>
+    <span>Simmer · recipes from kitchens near you</span>
     <span>Questions or a tester invite → cppingale@gmail.com</span>
   </div>
 </footer>
